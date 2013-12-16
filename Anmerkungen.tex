@@ -660,20 +660,34 @@ $ S = \left( \begin{smallmatrix}
 \end{smallmatrix} \right) $
 }
 \section{Volumenviskosität}
-In der Relaxationsmatrix hängt der Parameter $s_2$ direkt von der Volumenviskosität (\emph{bulk viscosity}) ab \cite{Guo2013}:
+In der Relaxationsmatrix hängt der Parameter $s_2$ direkt von der Volumenviskosität (\emph{bulk viscosity}, \emph{second viscosity}) ab \cite{Guo2013}:
 \begin{equation}
  \zeta = \frac{c^2}{3} \left( \frac{1}{s_2} - \frac{1}{2} \right)  \delta t.
 \end{equation}
+
 Die Volumenviskosität ist ein Maß für die innere Reibung bei Kompression. Bei Beachtung der sog. zweiten Viskosität ergibt sich folgender Spannungstensor \cite{Dellar2001}:
 \begin{equation}
- \mathbb{S} = \sigma_{\alpha \beta} = \nu \left( \partial_{\alpha} u_{\beta} + \partial_{\beta} u_{\alpha} - \frac{2}{3} \delta_{\alpha \beta} \nabla u \right) + \zeta \cdot \delta_{\alpha \beta} \nabla u
+ \mathbb{S} = \sigma_{\alpha \beta} = \nu \left( \partial_{\alpha} u_{\beta} + \partial_{\beta} u_{\alpha} - \frac{2}{3} \delta_{\alpha \beta} \nabla \cdot \vec{u} \right) + \zeta \delta_{\alpha \beta} \nabla \cdot \vec{u}
 \end{equation}
+(Bei Inkompressibilität wird $\nabla \cdot \vec{u} = 0$.)
+
+Die partiellen Ableitungen von $u$ können jeweils durch einen mittleren Differenzenquotienten angenähert werden:
+\begin{equation}
+ \left. \frac{\partial u(x)}{\partial x}\right|_{x_0} = \frac{u(x_0 + \Delta x) - u(x_0 - \Delta x)}{2 \Delta x}
+\end{equation}
+
 Aus dieser Spannungsmatrix kann außerdem der mechanische Druck im Fluid bestimmt werden.
-Dazu wird die Spur der Spannungsmatrix verwendet:
+Dazu wird die durchschnittliche Normal-Spannung verwendet \cite{Graves1999}:
 \begin{equation}
  p_{\text{mech}} = \frac{\sigma_{xx} \cdot \sigma_{yy} \cdot \sigma_{zz}}{3}
 \end{equation}
-Dieser Druck sollte nicht mit dem thermodynamischen Druck ($p_{\text{th}}=c^2 \rho$) verwechselt werden.
+
+Dieser Druck sollte nicht mit dem thermodynamischen Druck ($p_{\text{th}}=c^2 \rho$) verwechselt werden. 
+Für dünne, einatomige gase fallen diese beiden Drücke zusammen (Stoke's Hypothese) \cite{Graves1999}.
+
+
+
+
 
 
 
