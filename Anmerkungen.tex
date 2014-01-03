@@ -662,28 +662,44 @@ $ S = \left( \begin{smallmatrix}
 \section{Volumenviskosität}
 In der Relaxationsmatrix hängt der Parameter $s_2$ direkt von der Volumenviskosität (\emph{bulk viscosity}, \emph{second viscosity}) ab \cite{Guo2013}:
 \begin{equation}
- \zeta = \frac{c^2}{3} \left( \frac{1}{s_2} - \frac{1}{2} \right)  \delta t.
+ \nu' = \frac{c^2}{3} \left( \frac{1}{s_2} - \frac{1}{2} \right)  \delta t.
 \end{equation}
 
-Die Volumenviskosität ist ein Maß für die innere Reibung bei Kompression. Bei Beachtung der sog. zweiten Viskosität ergibt sich folgender Spannungstensor \cite{Dellar2001}:
+Die Volumenviskosität ist ein Maß für die innere Reibung bei Kompression. 
+Bei Beachtung der sog. zweiten Viskosität $\nu'$ ergibt sich folgender Spannungstensor \cite{Dellar2001}:
 \begin{equation}
- \mathbb{S} = \sigma_{\alpha \beta} = \nu \left( \partial_{\alpha} u_{\beta} + \partial_{\beta} u_{\alpha} - \frac{2}{3} \delta_{\alpha \beta} \nabla \cdot \vec{u} \right) + \zeta \delta_{\alpha \beta} \nabla \cdot \vec{u}
+\label{eq:Spannungsmatrix}
+ \mathbb{S} = \sigma_{\alpha \beta} = \mu \left( \partial_{\alpha} u_{\beta} + \partial_{\beta} u_{\alpha} - \frac{2}{3} \delta_{\alpha \beta} \nabla \cdot \vec{u} \right) + \mu' \delta_{\alpha \beta} \nabla \cdot \vec{u}
 \end{equation}
 (Bei Inkompressibilität wird $\nabla \cdot \vec{u} = 0$.)
+Im englischsprachigen Raum wird außerdem oft $K = \mu' + \frac{2}{3} \mu$ als \emph{bulk viscosity} bezeichnet, was mitunter zu Verwirrung führt \cite{Rosenhead1954}.
+Hier wird die bei Lattice Boltzmann Anwendungen übliche erste Benamung verwendet.
+Analog zur Scherviskosität gitl: $\mu' = \nu' \cdots \rho$.
+
+\subsection{Wahl des Wertes}
+Für die Simulation muss letztlich ein Wert für $\zeta$ gewählt werden. 
+Mit der Stokes-Hypothese wird für dünne einatomige Gase \cite{Graves1999}:
+\begin{equation}
+ 0 = \mu' + \frac{2}{3} \mu.
+\end{equation}
+Die Volumenviskosität wäre damit $\mu' = - \frac{2}{3} \mu$. Da diese Hypothese aber nur selten gilt, wird häufig auf experimntelle Werte zurück gegriffen.
+
+
+
+\subsection{Berechnung des Druckes}
+Aus der Spannungsmatrix \eqref{eq:Spannungsmatrix} kann außerdem der mechanische Druck im Fluid bestimmt werden.
+Dazu wird die durchschnittliche Normal-Spannung verwendet \cite{Graves1999}:
+\begin{equation}
+ p_{\text{mech}} = \frac{\sigma_{xx} \cdot \sigma_{yy} \cdot \sigma_{zz}}{3}
+\end{equation}
+
+Dieser Druck sollte nicht mit dem thermodynamischen Druck ($p_{\text{th}}=c^2 \rho$) verwechselt werden. Bei Anwendung der Stokes Hypothese fallen diese beiden Drücke zusammen \cite{Graves1999}.
 
 Die partiellen Ableitungen von $u$ können jeweils durch einen mittleren Differenzenquotienten angenähert werden:
 \begin{equation}
  \left. \frac{\partial u(x)}{\partial x}\right|_{x_0} = \frac{u(x_0 + \Delta x) - u(x_0 - \Delta x)}{2 \Delta x}
 \end{equation}
 
-Aus dieser Spannungsmatrix kann außerdem der mechanische Druck im Fluid bestimmt werden.
-Dazu wird die durchschnittliche Normal-Spannung verwendet \cite{Graves1999}:
-\begin{equation}
- p_{\text{mech}} = \frac{\sigma_{xx} \cdot \sigma_{yy} \cdot \sigma_{zz}}{3}
-\end{equation}
-
-Dieser Druck sollte nicht mit dem thermodynamischen Druck ($p_{\text{th}}=c^2 \rho$) verwechselt werden. 
-Für dünne, einatomige gase fallen diese beiden Drücke zusammen (Stoke's Hypothese) \cite{Graves1999}.
 
 
 
