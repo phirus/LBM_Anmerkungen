@@ -64,7 +64,7 @@ Der Kollisionsoperator ist dabei aus verschiedenen Operatoren zusammengestzt:
 
 Die einzelnen Operatoren werden im folgenden kurz beschrieben.
 
-\section{Single phase collision}
+\section{Single phase collision (BGK)}
 Der erste Sub-Operator ist im Kern der klassische BGK-Operator:
 \begin{equation}
  (\Omega_i^k)^{(1)} (N_i^k) = N_i^k - \omega \left(N_i^k - {N_i^k}^{(e)} \right)
@@ -165,7 +165,10 @@ Alternativ wird direkt eine Auftirebskraft auf die Gas-Phase aufgeprägt:
                   \end{array} \right) .
 \end{equation}
 In diesem Ansatz ist $\rho_l$ konstant und $\rho_g$ wird aus den Dichteverteilungen gewonnen.
- 
+
+
+In der Implementierung wird nicht der BGK-Ansatz verwendet sondern ein MRT-Ansatz. Genaueres dazu in \autoref{chap:MRT}.
+
 \section{Perturbation}
 Der zweite Operator bewirkt eine Separation entlang des Farb-Gradienten:
 \begin{equation}
@@ -307,6 +310,8 @@ Die Gleichgewichtsverteilung ${N_i^k}^{(e)} (\rho_k,0,\alpha_k)$ wird wie folgt 
 
 \section{Streaming und bounce back}
 
+Der Streaming-Schritt ist als einfacher Pull-Mechanismus implementiert. Im Gegensatz zum Push-Mechanismus kann dieser gleich mit einem eventuellen Bounce-Back-Schritt kombiniert werden. 
+Komplexere Schemata, wie etwa das A-A-Schema, können aufgrund der verschiedenen Komponenten des Kollisions-Schrittes nicht verwendet werden.
 
 \section{Die Sache mit den Einheiten}
 Um innerhalb der Simulation die räumliche und zeitliche Dimension quantitativ zueinander in eziehung setzen zu können, wird folgende Relation verwendet:
@@ -503,6 +508,7 @@ Damit fällt die Variante 2 in Buick und Greated \cite{Buick2000} aus, da hier n
 
 
 \section{MRT}
+\label{chap:MRT}
 Bei der MRT werden die Relaxationsparameter für jede Komponente der Verteilung individuell angepasst. Dazu wird zu einer Matrix-Schreibweise in der Dirac-Notation übergegangen \cite{2002}:
 \begin{equation}
 \label{eq:MRTbasic}
