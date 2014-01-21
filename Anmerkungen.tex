@@ -458,11 +458,6 @@ Da das System instabiler wird, je mehr sich $\tau$ dem Wert \num{0.5} nähert, w
 
 
 
-%Damit ist es ausreichend die Eötvös-Zahl fest zu legen und die Morton-Zahl ergibt sich automatisch. 
-%Als Stellparameter wird die Oberflächenspannung gewählt:
-%\begin{equation}
-%  \sigma = \frac{\Delta \rho g d^2}{\mathit{Eo}}
-%\end{equation}
 
 
 
@@ -481,30 +476,27 @@ Da das System instabiler wird, je mehr sich $\tau$ dem Wert \num{0.5} nähert, w
 
 
 
-
-
-
-\subsection{Gedanken zum Einbau von Schwerkraft}
-Das mit der Schwerkraft ist ein wenig tricky. Es gibt verschiedene Arten diese zu modellieren.
-
-Um Schwerkraft zu modellieren kann der Impuls $p$ in jedem Gitterpunkt manipuliert werden. Dazu wird genutzt dass der Einfluss einer Kraft zu einer Impulsänderung führt:
-\begin{align}
- F_g &= \dot{p_g} \\
- F_g &= \frac{\text{d} p}{\text{d} t} \\
-\int_{t_1}^{t_2} F_g \text{d} t &= \int_{p_{\text{old}}}^{p_{\text{new}}} \text{d} p \\
-\int_{t_1}^{t_2} m g \text{d} t &= \int_{p_{\text{old}}}^{p_{\text{new}}} \text{d} p \\
-m g \int_{t_1}^{t_2} \text{d} t &= \int_{p_{\text{old}}}^{p_{\text{new}}} \text{d} p \\
-m g \Delta t &= p_{\text{new}} - p_{\text{old}} \\
-p_{\text{new}} &= p_{\text{old}} + m g \Delta t
-\end{align}
-Bis hierhin wurd zur besseren Übersichtlichkeit auf vektorielle Schreibweise verzichtet. Da sowohl Impuls als auch Beschleunigungen als gerichtet zu betrachten sind, wird dies nun in der Notation berücksichtigt.
-Obige Gleichung wird nach der Substitution: $\vec{p} = m \cdot \vec{u}$  durch das Zellen-Volumen $V$ dividiert und man erhält:
-\begin{equation}
-\label{eq:gravity_momentum}
- (\rho \vec{u})_{\text{new}} = (\rho \vec{u})_{\text{old}} + \rho \vec{g} \Delta t
-\end{equation}
-nun muss eine Möglichkeit gefunden werden, das Verteilungs-Set $f$ so zu manipulieren, dass sowohl \eqref{eq:gravity_momentum} als auch die Massenerhaltung erhaltung erfüllt werden. Diese Manipulation kann dann entwedr vor oder nach der Kollision erfolgen, da der Kollisionsterm selbt impulserhaltend ist.
-Damit fällt die Variante 2 in Buick und Greated \cite{Buick2000} aus, da hier nur für $\tau =1$ der entsprechende Impuls nach der Kollision erreicht wird.
+% \subsection{Gedanken zum Einbau von Schwerkraft}
+% Das mit der Schwerkraft ist ein wenig tricky. Es gibt verschiedene Arten diese zu modellieren.
+% 
+% Um Schwerkraft zu modellieren kann der Impuls $p$ in jedem Gitterpunkt manipuliert werden. Dazu wird genutzt dass der Einfluss einer Kraft zu einer Impulsänderung führt:
+% \begin{align}
+%  F_g &= \dot{p_g} \\
+%  F_g &= \frac{\text{d} p}{\text{d} t} \\
+% \int_{t_1}^{t_2} F_g \text{d} t &= \int_{p_{\text{old}}}^{p_{\text{new}}} \text{d} p \\
+% \int_{t_1}^{t_2} m g \text{d} t &= \int_{p_{\text{old}}}^{p_{\text{new}}} \text{d} p \\
+% m g \int_{t_1}^{t_2} \text{d} t &= \int_{p_{\text{old}}}^{p_{\text{new}}} \text{d} p \\
+% m g \Delta t &= p_{\text{new}} - p_{\text{old}} \\
+% p_{\text{new}} &= p_{\text{old}} + m g \Delta t
+% \end{align}
+% Bis hierhin wurd zur besseren Übersichtlichkeit auf vektorielle Schreibweise verzichtet. Da sowohl Impuls als auch Beschleunigungen als gerichtet zu betrachten sind, wird dies nun in der Notation berücksichtigt.
+% Obige Gleichung wird nach der Substitution: $\vec{p} = m \cdot \vec{u}$  durch das Zellen-Volumen $V$ dividiert und man erhält:
+% \begin{equation}
+% \label{eq:gravity_momentum}
+%  (\rho \vec{u})_{\text{new}} = (\rho \vec{u})_{\text{old}} + \rho \vec{g} \Delta t
+% \end{equation}
+% nun muss eine Möglichkeit gefunden werden, das Verteilungs-Set $f$ so zu manipulieren, dass sowohl \eqref{eq:gravity_momentum} als auch die Massenerhaltung erhaltung erfüllt werden. Diese Manipulation kann dann entwedr vor oder nach der Kollision erfolgen, da der Kollisionsterm selbt impulserhaltend ist.
+% Damit fällt die Variante 2 in Buick und Greated \cite{Buick2000} aus, da hier nur für $\tau =1$ der entsprechende Impuls nach der Kollision erreicht wird.
 
 
 \section{MRT}
@@ -640,31 +632,47 @@ Damit ergibt sich der Kollisionsoperator:
  | f(\vec{x} + \vec{c} \Delta t, t + \Delta t) \rangle &= | f(\vec{x},t) \rangle - M^{-1} \hat{S} \left( | m(\vec{x},t) \rangle - | m^{\text{eq}}(\vec{x},t) \rangle \right) \\
  | f(\vec{x} + \vec{c} \Delta t, t + \Delta t) \rangle &= | f(\vec{x},t) \rangle - M^{-1} \hat{S} \left( M | f(\vec{x},t) \rangle - M | f^{\text{eq}}(\vec{x},t) \rangle \right) \\
  | f(\vec{x} + \vec{c} \Delta t, t + \Delta t) \rangle &= | f(\vec{x},t) \rangle - M^{-1} \hat{S} M \left( | f(\vec{x},t) \rangle - | f^{\text{eq}}(\vec{x},t) \rangle \right) \\
- | f(\vec{x} + \vec{c} \Delta t, t + \Delta t) \rangle &= | f(\vec{x},t) \rangle - S  \left( | f(\vec{x},t) \rangle - | f^{\text{eq}}(\vec{x},t) \rangle \right) \\
+% | f(\vec{x} + \vec{c} \Delta t, t + \Delta t) \rangle &= | f(\vec{x},t) \rangle - S  \left( | f(\vec{x},t) \rangle - | f^{\text{eq}}(\vec{x},t) \rangle \right) \\
 \end{align}
-Was wiederrum Gleichung \eqref{eq:MRTbasic} entspricht, nur dass nun die Relaxationsmatrix $S$ bekannt ist:
+\subsection{MRT forcing term}
+Im MRT-Fall ergibt sich ein etwas anderer \emph{forcing term} als im BGK-Fall:
 \begin{equation}
- S = M^{-1} \hat{S} M
+ | f(\vec{x} + \vec{c} \Delta t, t + \Delta t) \rangle = | f(\vec{x},t) \rangle - M^{-1} \hat{S} M \left( | f(\vec{x},t) \rangle - | f^{\text{eq}}(\vec{x},t) \rangle \right) + \Delta t M^{-1} \hat{F} 
 \end{equation}
-Dieses $S$ kann bis auf den Wert von $\omega$ bereits vorher berechnet werden (vgl. \autoref{anhang:relaxationsmatrix}).
+Mit:
+\begin{equation}
+ \hat{F} = \left( I - \frac{1}{2} \hat{S} \right) M \bar{F}
+\end{equation}
+Dabei ist $\bar{F}$ direkt mit der Kraf $F$ verknüpft:
+% \begin{equation}
+%  \bar{F_i} = 
+% \end{equation}
+
+
+
+% Was wiederrum Gleichung \eqref{eq:MRTbasic} entspricht, nur dass nun die Relaxationsmatrix $S$ bekannt ist:
+% \begin{equation}
+%  S = M^{-1} \hat{S} M
+% \end{equation}
+% Dieses $S$ kann bis auf den Wert von $\omega$ bereits vorher berechnet werden (vgl. \autoref{anhang:relaxationsmatrix}).
 
 \appendix
 \chapter{Anhang}
-\section{Relaxationsmatrix}
-\label{anhang:relaxationsmatrix}
-\rotatebox{90}{
-$ S = \left( \begin{smallmatrix}
-\frac{4 s_3+4 s_2}{9} & -\frac{2 s_3-s_2}{9}                 & \frac{s_3-2 s_2}{9}                 & -\frac{2 s_3-s_2}{9}                 & \frac{s_3-2 s_2}{9}                 & -\frac{2 s_3-s_2}{9}                 & \frac{s_3-2 s_2}{9}                 & -\frac{2 s_3-s_2}{9}                 & \frac{s_3-2 s_2}{9} \\
--\frac{2 s_3-s_2}{9}  & \frac{9 \omega+12 s_5+4 s_3+s_2}{36} & -\frac{3 s_5+s_3+s_2}{18}           & -\frac{9 \omega-4 s_3-s_2}{36}       & \frac{3 s_5-s_3-s_2}{18}            & \frac{9 \omega-12 s_5+4 s_3+s2}{36}  & \frac{3 s_5-s_3-s_2}{18}            & -\frac{9 \omega-4 s_3-s_2}{36}       & -\frac{3 s_5+s_3+s_2}{18} \\
-\frac{s_3-2 s_2}{9}   & -\frac{3 s_5+s_3+s_2}{18}            & \frac{9 \omega+6 s_5+s_3+4 s_2}{36} & -\frac{3 s_5+s_3+s_2}{18}            & -\frac{9 \omega-s_3-4 s_2}{36}      & \frac{3 s_5-s_3-s_2}{18}             & \frac{9 \omega-6 s_5+s_3+4 s_2}{36} & \frac{3 s_5-s_3-s_2}{18}             & -\frac{9 \omega-s_3-4 s_2}{36} \\
--\frac{2 s_3-s_2}{9}  & -\frac{9 \omega-4 s_3-s_2}{36}       & -\frac{3 s_5+s_3+s_2}{18}           & \frac{9 \omega+12 s_5+4 s_3+s_2}{36} & -\frac{3 s_5+s_3+s_2}{18}           & -\frac{9 \omega-4 s_3-s_2}{36}       & \frac{3 s_5-s_3-s_2}{18}            & \frac{9 \omega-12 s_5+4 s_3+s_2}{36} & \frac{3 s_5-s_3-s_2}{18} \\
-\frac{s_3-2 s_2}{9}   & \frac{3 s_5-s_3-s_2}{18}             & -\frac{9 \omega-s_3-4 s_2}{36}      & -\frac{3 s_5+s_3+s_2}{18}            & \frac{9 \omega+6 s_5+s_3+4 s_2}{36} & -\frac{3 s_5+s_3+s_2}{18}            & -\frac{9 \omega-s_3-4 s_2}{36}      & \frac{3 s_5-s_3-s_2}{18}             & \frac{9 \omega-6 s_5+s_3+4 s_2}{36} \\
--\frac{2 s_3-s_2}{9}  & \frac{9 \omega-12 s_5+4 s_3+s_2}{36} & \frac{3 s_5-s_3-s_2}{18}            & -\frac{9 \omega -4 s_3-s_2}{36}      & -\frac{3 s_5+s_3+s_2}{18}           & \frac{9 \omega+12 s_5+4 s_3+s_2}{36} & -\frac{3 s_5+s_3+s_2}{18}           & -\frac{9 \omega-4 s_3-s_2}{36}       & \frac{3 s_5-s_3-s_2}{18} \\
-\frac{s_3-2 s_2}{9}   & \frac{3 s_5-s_3-s_2}{18}             & \frac{9 \omega-6 s_5+s_3+4 s_2}{36} & \frac{3 s_5-s_3-s_2}{18}             & -\frac{9 \omega-s_3-4 s_2}{36}      & -\frac{3 s_5+s_3+s_2}{18}            & \frac{9 \omega+6 s_5+s_3+4 s_2}{36} & -\frac{3 s_5+s_3+s_2}{18}            & -\frac{9 \omega-s_3-4 s_2}{36} \\
--\frac{2 s_3-s_2}{9}  & -\frac{9 \omega-4 s_3-s_2}{36}       & \frac{3 s_5-s_3-s_2}{18}            & \frac{9 \omega-12 s_5+4 s_3+s_2}{36} & \frac{3 s_5-s_3-s_2}{18}            & -\frac{9 \omega-4 s_3-s_2}{36}       & -\frac{3 s_5+s_3+s_2}{18}           & \frac{9 \omega+12 s_5+4 s_3+s_2}{36} & -\frac{3 s_5+s_3+s_2}{18} \\
-\frac{s_3-2 s_2}{9}   &  -\frac{3 s_5+s_3+s_2}{18}           & -\frac{9 \omega-s_3-4 s_2}{36}      & \frac{3 s_5-s_3-s_2}{18}             & \frac{9 \omega-6 s_5+s_3+4 s_2}{36} & \frac{3 s_5-s_3-s_2}{18}             & -\frac{9 \omega-s_3-4 s_2}{36}      & -\frac{3 s_5+s_3+s_2}{18}            & \frac{9 \omega+6 s_5+s_3+4 s_2}{36}
-\end{smallmatrix} \right) $
-}
+% \section{Relaxationsmatrix}
+% \label{anhang:relaxationsmatrix}
+% \rotatebox{90}{
+% $ S = \left( \begin{smallmatrix}
+% \frac{4 s_3+4 s_2}{9} & -\frac{2 s_3-s_2}{9}                 & \frac{s_3-2 s_2}{9}                 & -\frac{2 s_3-s_2}{9}                 & \frac{s_3-2 s_2}{9}                 & -\frac{2 s_3-s_2}{9}                 & \frac{s_3-2 s_2}{9}                 & -\frac{2 s_3-s_2}{9}                 & \frac{s_3-2 s_2}{9} \\
+% -\frac{2 s_3-s_2}{9}  & \frac{9 \omega+12 s_5+4 s_3+s_2}{36} & -\frac{3 s_5+s_3+s_2}{18}           & -\frac{9 \omega-4 s_3-s_2}{36}       & \frac{3 s_5-s_3-s_2}{18}            & \frac{9 \omega-12 s_5+4 s_3+s2}{36}  & \frac{3 s_5-s_3-s_2}{18}            & -\frac{9 \omega-4 s_3-s_2}{36}       & -\frac{3 s_5+s_3+s_2}{18} \\
+% \frac{s_3-2 s_2}{9}   & -\frac{3 s_5+s_3+s_2}{18}            & \frac{9 \omega+6 s_5+s_3+4 s_2}{36} & -\frac{3 s_5+s_3+s_2}{18}            & -\frac{9 \omega-s_3-4 s_2}{36}      & \frac{3 s_5-s_3-s_2}{18}             & \frac{9 \omega-6 s_5+s_3+4 s_2}{36} & \frac{3 s_5-s_3-s_2}{18}             & -\frac{9 \omega-s_3-4 s_2}{36} \\
+% -\frac{2 s_3-s_2}{9}  & -\frac{9 \omega-4 s_3-s_2}{36}       & -\frac{3 s_5+s_3+s_2}{18}           & \frac{9 \omega+12 s_5+4 s_3+s_2}{36} & -\frac{3 s_5+s_3+s_2}{18}           & -\frac{9 \omega-4 s_3-s_2}{36}       & \frac{3 s_5-s_3-s_2}{18}            & \frac{9 \omega-12 s_5+4 s_3+s_2}{36} & \frac{3 s_5-s_3-s_2}{18} \\
+% \frac{s_3-2 s_2}{9}   & \frac{3 s_5-s_3-s_2}{18}             & -\frac{9 \omega-s_3-4 s_2}{36}      & -\frac{3 s_5+s_3+s_2}{18}            & \frac{9 \omega+6 s_5+s_3+4 s_2}{36} & -\frac{3 s_5+s_3+s_2}{18}            & -\frac{9 \omega-s_3-4 s_2}{36}      & \frac{3 s_5-s_3-s_2}{18}             & \frac{9 \omega-6 s_5+s_3+4 s_2}{36} \\
+% -\frac{2 s_3-s_2}{9}  & \frac{9 \omega-12 s_5+4 s_3+s_2}{36} & \frac{3 s_5-s_3-s_2}{18}            & -\frac{9 \omega -4 s_3-s_2}{36}      & -\frac{3 s_5+s_3+s_2}{18}           & \frac{9 \omega+12 s_5+4 s_3+s_2}{36} & -\frac{3 s_5+s_3+s_2}{18}           & -\frac{9 \omega-4 s_3-s_2}{36}       & \frac{3 s_5-s_3-s_2}{18} \\
+% \frac{s_3-2 s_2}{9}   & \frac{3 s_5-s_3-s_2}{18}             & \frac{9 \omega-6 s_5+s_3+4 s_2}{36} & \frac{3 s_5-s_3-s_2}{18}             & -\frac{9 \omega-s_3-4 s_2}{36}      & -\frac{3 s_5+s_3+s_2}{18}            & \frac{9 \omega+6 s_5+s_3+4 s_2}{36} & -\frac{3 s_5+s_3+s_2}{18}            & -\frac{9 \omega-s_3-4 s_2}{36} \\
+% -\frac{2 s_3-s_2}{9}  & -\frac{9 \omega-4 s_3-s_2}{36}       & \frac{3 s_5-s_3-s_2}{18}            & \frac{9 \omega-12 s_5+4 s_3+s_2}{36} & \frac{3 s_5-s_3-s_2}{18}            & -\frac{9 \omega-4 s_3-s_2}{36}       & -\frac{3 s_5+s_3+s_2}{18}           & \frac{9 \omega+12 s_5+4 s_3+s_2}{36} & -\frac{3 s_5+s_3+s_2}{18} \\
+% \frac{s_3-2 s_2}{9}   &  -\frac{3 s_5+s_3+s_2}{18}           & -\frac{9 \omega-s_3-4 s_2}{36}      & \frac{3 s_5-s_3-s_2}{18}             & \frac{9 \omega-6 s_5+s_3+4 s_2}{36} & \frac{3 s_5-s_3-s_2}{18}             & -\frac{9 \omega-s_3-4 s_2}{36}      & -\frac{3 s_5+s_3+s_2}{18}            & \frac{9 \omega+6 s_5+s_3+4 s_2}{36}
+% \end{smallmatrix} \right) $
+% }
 \section{Volumenviskosität}
 In der Relaxationsmatrix hängt der Parameter $s_2$ direkt von der Volumenviskosität (\emph{bulk viscosity}, \emph{second viscosity}) ab \cite{Guo2013}:
 \begin{equation}
