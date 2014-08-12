@@ -1,10 +1,10 @@
 \chapter{Modellbeschreibung}
-Das verwendete Modell kann durch folgende Lattice Boltzmann Gleichung beschireben werden \cite{Leclaire2011}:
+Das verwendete Modell kann durch folgende Lattice Boltzmann Gleichung beschrieben werden \cite{Leclaire2011}:
 \begin{equation}
 N_i^k(\vec{x} + \vec{c_i} \delta t, t+\delta t) = N_i^k(\vec{x},t) + \Omega_i^k \left( N_i^k(\vec{x},t) \right).
 \end{equation}
 
-Der Kollisionsoperator ist dabei aus verschiedenen Operatoren zusammengestzt:
+Der Kollisionsoperator ist dabei aus verschiedenen Operatoren zusammengesetzt:
 \begin{equation}
  \Omega_i^k  \left( N_i^k(\vec{x},t)\right) = (\Omega_i^k)^{(3)} \left[ (\Omega_i^k)^{(1)} + (\Omega_i^k)^{(2)} \right] \left( N_i^k(\vec{x},t)\right). 
 \end{equation}
@@ -81,7 +81,7 @@ Die hier auftretenden Parameter sind definiert als:
 \end{align}
 
 Bei Leclaire et al.  wurden die Viskositäten noch nicht variiert, weshalb $\omega_r = \omega_b = 1$ ist und $\delta = 0,1$ keinen Einfluss auf das Ergebnis hat. 
-Die Visositätsunterschiede wurden von Leclaire et al. erst später eingebracht \cite{Leclaire2012}.
+Die Viskositätsunterschiede wurden von Leclaire et al. erst später eingebracht \cite{Leclaire2012}.
 
 \subsection{Einbau von Gravitation}
 Der Einfluss der Schwerkraft kann als zusätzlicher \emph{forcing term} in das Modell eingearbeitet werden \cite{Guo2002}: 
@@ -102,9 +102,9 @@ Zunächst wurde versucht ein allgemeiner Ansatz zu implementieren. Dabei war $\v
                   \end{array} \right) .
 \end{equation}
 mit konstantem $V$. 
-Die Idee war, dass das dichetere Medium stärker nach unten gezogen wird als das dünnere und somit dieses nach oben drückt. 
+Die Idee war, dass das dichtere Medium stärker nach unten gezogen wird als das dünnere und somit dieses nach oben drückt. 
 Allerdings wird die Grenzfläche instabil, wenn der Dichtegradient in der kontinuierlichen Phase zu groß wird. 
-Alternativ wird direkt eine Auftirebskraft auf die Gas-Phase aufgeprägt:
+Alternativ wird direkt eine Auftriebskraft auf die Gas-Phase aufgeprägt:
 \begin{equation}
  \vec{G} = \left( \begin{array}{c} 
                    0 \\
@@ -121,7 +121,7 @@ Der zweite Operator bewirkt eine Separation entlang des Farb-Gradienten:
 \begin{equation}
  (\Omega_i^k)^{(2)} (N_i^k) = N_i^k + \frac{A_k}{2} \left| \vec{F} \right| \left[w_i \frac{(\vec{F} \cdot \vec{c_i})^2 }{\left| \vec{F} \right|^2} -B_i  \right]
 \end{equation}
-Der Parameter $A_k$ bestimmt die Stärke dieser Trennung und kann somit als Maß für die Oberflächenspannung genutzt werden \cite{Gunstensen1991}. Der Wert von $B_i$ wird so gewählt, dass die Chapman-Enskrog-Erweiterug die klassischen Navier-Stokes-Gleichungen ergibt \cite{Reis2007}:
+Der Parameter $A_k$ bestimmt die Stärke dieser Trennung und kann somit als Maß für die Oberflächenspannung genutzt werden \cite{Gunstensen1991}. Der Wert von $B_i$ wird so gewählt, dass die Chapman-Enskrog-Erweiterung die klassischen Navier-Stokes-Gleichungen ergibt \cite{Reis2007}:
 \begin{equation}
  B_i = \left\lbrace 
 \begin{array}{ll}
@@ -138,7 +138,7 @@ Dieser Gradient kann angenähert werden durch \cite{Grunau1993,Reis2007}:
 \begin{equation}
  \vec{F}(\vec{x}) = \sum_i \vec{e_i} \Delta(\vec{x} + \vec{e_i}) 
 \end{equation}
-Diese anisotrope Näherung führt bei großen Dichteverhältbnissen zu Problemen und wird deshalb durch eine Wichtung der einzelnen Summanden isotrop bis auf einen räumlichen Fehler 4. Ordnung angenähert \cite{Leclaire2011}.
+Diese anisotrope Näherung führt bei großen Dichteverhältnissen zu Problemen und wird deshalb durch eine Wichtung der einzelnen Summanden isotrop bis auf einen räumlichen Fehler 4. Ordnung angenähert \cite{Leclaire2011}.
 Dazu müssen die Dichteunterschiede in 4 weiteren Zellen berücksichtigt werden.
 
 \begin{figure}
@@ -225,7 +225,7 @@ was einer Verkettung entspricht: $N_i^k (\vec{x},t_{**}) = (\Omega_i^k)^{(2)} (\
 Aufgrund des geringeren Rechenaufwandes bei Verwendung von \eqref{eq:collision_combined} wird diese Variante implementiert.
 
 \section{Recoloring}
-Der letzte Teil des Kollisionsoperators ist der sogannte \emph{recoloring step}.
+Der letzte Teil des Kollisionsoperators ist der sogenannte \emph{recoloring step}.
 \begin{align}
  (\Omega_i^r)^{(3)} \left(N_i^r\right) = \frac{\rho_r}{\rho} N_i + \beta \frac{\rho_r \rho_b}{\rho^2} \cos(\varphi_i) \sum_k  {N_i^k}^{(e)} (\rho_k,0,\alpha_k), \\
  (\Omega_i^b)^{(3)} \left(N_i^b\right) = \frac{\rho_b}{\rho} N_i - \beta \frac{\rho_r \rho_b}{\rho^2} \cos(\varphi_i) \sum_k  {N_i^k}^{(e)} (\rho_k,0,\alpha_k),
@@ -242,7 +242,7 @@ Dieser Kosinus lässt auch über das Skalarprodukt ausgedrückt werden \cite{Bro
 \begin{equation}
  \cos{\varphi_i} = \frac{\vec{c_i} \cdot \vec{F}}{|\vec{c_i}| \cdot |\vec{F}|}.
 \end{equation}
-Um Massenerhaltung zu sichern wird allerding $\cos{\varphi_1} = 0$ festgelegt \cite{Leclaire2011}.
+Um Massenerhaltung zu sichern wird allerdings $\cos{\varphi_1} = 0$ festgelegt \cite{Leclaire2011}.
 Der letzte offene Parameter des Operators ist $\beta$. Dieser Parameter kann Werte zwischen 0 und 1 annehmen und gibt an, wie stark sich die beiden Fluide voneinander separieren \cite{Latva-Kokko2005}.
 Dabei wird die größte Trennung mit $\beta = 1$ erreicht. 
 Hier wird analog zu Leclaire et al. $\beta = \num{0.99}$ gewählt. 
@@ -261,7 +261,7 @@ Der Streaming-Schritt ist als einfacher Pull-Mechanismus implementiert. Im Gegen
 Komplexere Schemata, wie etwa das A-A-Schema, können aufgrund der verschiedenen Komponenten des Kollisions-Schrittes nicht verwendet werden.
 
 \section{Die Sache mit den Einheiten}
-Um innerhalb der Simulation die räumliche und zeitliche Dimension quantitativ zueinander in eziehung setzen zu können, wird folgende Relation verwendet:
+Um innerhalb der Simulation die räumliche und zeitliche Dimension quantitativ zueinander in Beziehung setzen zu können, wird folgende Relation verwendet:
 \begin{equation}
  c = \frac{\delta x}{\delta t} = \sqrt{3} c_s
 \end{equation}
@@ -277,22 +277,22 @@ In der Literatur wird dieser Umstand nicht thematisiert.
 Als Grenzfälle ergeben sich bei gleichen Zeitschritt unterschiedliche Weglängen mit einem feineren Gitter in der Gasblase. 
 Dazu müsste das Gitter adaptiv innerhalb der Blase verfeinert werden. 
 Hingegen müssten bei gleicher räumlicher Auflösung die Zeitschritte in der Flüssigkeit kleiner sein als im Gas. 
-beide varianten sind unpraktikabel, zumal unklar ist, wie sich das Verhältnis von räumlicher und zeitlicher Auflösung in der Grenzschicht selbst verhalten soll.
+beide Varianten sind unpraktikabel, zumal unklar ist, wie sich das Verhältnis von räumlicher und zeitlicher Auflösung in der Grenzschicht selbst verhalten soll.
 
 Nach einiger Überlegung habe ich mich entschlossen dieses Problem an dieser Stelle zu ignorieren. 
-Da andere Modelle (etwa \emph{free surface}) die Strömung innerhalb der Gasphase komplett ausblenden und dennoch gute Ergebnisse liefern, habe ich die Hoffnung, dass die Ergebnis nicht zu sehr verfälscht werden, wenn global einach die Schallgeschwindigkeit des dichteren, die Strömung beherrschenden Fluides angenommen wird.
+Da andere Modelle (etwa \emph{free surface}) die Strömung innerhalb der Gasphase komplett ausblenden und dennoch gute Ergebnisse liefern, habe ich die Hoffnung, dass die Ergebnis nicht zu sehr verfälscht werden, wenn global einfach die Schallgeschwindigkeit des dichteren, die Strömung beherrschenden Fluides angenommen wird.
 
 Zusätzlich zur Schallgeschwindigkeit ist die Viskosität zu beachten.
 \begin{itemize}
  \item Die dynamische Viskosität von Wasser \footnote{bei \SI{25}{\celsius} nach Wolfram Alpha} $\mu$ beträgt \SI{8.9e-4}{\pascal \second}. 
  \item damit wird die kinematische Viskosität $\nu$ \SI{8.9e-7}{\metre^2 \per \second}
 \end{itemize}
-Um die Viskosität mit dem Realxationsparameter zu verknüpfen, kann folgende Formel benutzt werden \cite{Liu2012}:
+Um die Viskosität mit dem Relaxationsparameter zu verknüpfen, kann folgende Formel benutzt werden \cite{Liu2012}:
 \begin{equation}
 \label{eq:LB-viscosity}
  \nu = \frac{c^2}{3} \left( \tau - \frac{1}{2} \right) \delta t
 \end{equation}
-Damit ergibt sich der Relaxationsparameter $\omega$ in Abhänigkeit der Viskosität und des Zeit- und Weg-Schrittes :
+Damit ergibt sich der Relaxationsparameter $\omega$ in Abhängigkeit der Viskosität und des Zeit- und Weg-Schrittes :
 \begin{align}
  \omega = \frac{1}{\tau} &= \frac{1}{ \frac{3 \nu}{c^2 \delta t} + \frac{1}{2} } \\
   &= \frac{1}{ \frac{3 \nu \delta t}{\delta^2 x} + \frac{1}{2} } \\
@@ -312,17 +312,17 @@ Für eine feste Schallgeschwindigkeit ergibt sich so der Relaxationsparameter in
 In \autoref{pic:omegaOverDX} ist diese Abhängigkeit für Wasser dargestellt. 
 Hier erkennt man, dass für eine stabile Relaxation ($\omega \\approx 1$) ein sehr kleiner Wegschritt von etwa \SI{1e-7}{\metre} folgt. 
 Für größere Systeme ist ein so kleiner Wegschritt ungeeignet. 
-Allerdings nähert sich $\omega$ mit wachsendenm Wegschritt immer mehr an $\omega = 2$ an, was dazu führt, dass die Simulation insgesamt instabil wird.
+Allerdings nähert sich $\omega$ mit wachsendem Wegschritt immer mehr an $\omega = 2$ an, was dazu führt, dass die Simulation insgesamt instabil wird.
 
 \subsection{Dimensionslose Betrachtung}
-Programmintern werden alle Werte dimensionslos behanedlt.
+Programm-intern werden alle Werte dimensionslos behandelt.
 Um nicht unnötig durcheinander zu kommen, werden einige Indizes eingeführt:
 \begin{itemize}
  \item $\tilde{a}$ kennzeichnet eine einheitenbehaftete physikalische Größe
 \item $a^*$ ist dimensionslos
  \item $a_0$ kennzeichnet einen besonderen Kennwert
 \end{itemize}
-Allgemein wird eine dimensionslose Beschreibung durch Division durch einen markanten kennwert gewonnen
+Allgemein wird eine dimensionslose Beschreibung durch Division durch einen markanten Kennwert gewonnen
 \begin{equation}
  a^* = \frac{\tilde{a}}{a_0}
 \end{equation}
@@ -342,18 +342,18 @@ Außerdem wird die Dichte normiert:
 mit $\tilde{\rho}_0 = \SI{1e3}{\kilo \gram \per \cubic \metre}$ .
 
 \subsection{Ähnlichkeitstheorie}
-Der Ausweg aus sehr kleinen zeitschritten führt über die Ähnlichkeitstheorie indem man sich ein Ersatz-System definiert, das mit Blick auf bestimmte dimensionslose Kennzahlen vergleichbar ist.
+Der Ausweg aus sehr kleinen Zeitschritten führt über die Ähnlichkeitstheorie indem man sich ein Ersatz-System definiert, das mit Blick auf bestimmte dimensionslose Kennzahlen vergleichbar ist.
 Bei einphasigen Lattice-Boltzmann Simulationen wird hierfür meistens die Reynoldszahl gewählt.
 
-Für Systeme mit Blasen eignen sich Reynoldszhal, Morton-Zahl und Eötvös-Zahl \cite{Clift2005}:
+Für Systeme mit Blasen eignen sich Reynoldszahl, Morton-Zahl und Eötvös-Zahl \cite{Clift2005}:
 \begin{align}
  \mathit{Re} &= \frac{d u}{\nu} \\
  \mathit{Eo} &= \frac{\Delta \rho g d^2}{\sigma} \\
  \mathit{Mo} &= \frac{g \mu^4 \Delta \rho}{\rho^2 \sigma^3}
 \end{align}
-Hier ist $d$ der Durchmesser einer volumenequivalenten Kugel, bezogen auf die auftseigende Blase. 
+Hier ist $d$ der Durchmesser einer volumenequivalenten Kugel, bezogen auf die aufsteigende Blase. 
 Die Bezugsgeschwindigkeit $u$ ist die stationäre Aufstiegsgeschwindigkeit der Blase. 
-Diese kann nich analytisch ermittelt werden und es muss auf empirische Formeln zurück gegriffen werden.
+Diese kann nicht analytisch ermittelt werden und es muss auf empirische Formeln zurück gegriffen werden.
 Die Werte der Dichte und der Viskositäten beziehen sich jeweils auf die kontinuierliche Phase.
 
 Für die stationäre Aufstiegsgeschwindigkeit der Blase ($d>\SI{1.3}{\milli \metre}$) wird folgende Gleichung verwendet \cite{Clift2005}:
@@ -477,7 +477,7 @@ Diese Transformationsmatrix ergibt sich aus den verschiedenen Momenten der Gesch
 \end{itemize}
 
 Diese Momente spannen nun den Raum $ \mathbb{M} = \mathbb{R}^b $ auf. Allerdings sind die einzelnen Vektoren nicht orthogonal. Um nun eine orthogonale Basis zu erhalten, die den gleichen Raum aufspannt, wird die Gram-Schmidt-Orthogonalisierung angewendet \cite{Lallemand2003}.
-Dabei werden aus den linear unabhängigen Vekoren $w_i$ die orthogonalen Vektoren $v_i$ nach folgender Vorschrift gebildet \cite{Bronstein2006}:
+Dabei werden aus den linear unabhängigen Vektoren $w_i$ die orthogonalen Vektoren $v_i$ nach folgender Vorschrift gebildet \cite{Bronstein2006}:
 \begin{align}
  v_1 &= w_1 \\
  \langle v_i | &= \langle w_i | - \sum_{i=1}^{k-1} \frac{\langle v_i | w_k \rangle}{\langle v_i | v_i \rangle}  \langle v_i |   
@@ -552,7 +552,7 @@ $s_8$ und $s_9$ entsprechen dem BGK-Parameter $\omega$ \cite{McCracken2005,Yu201
 \end{matrix} \right).
 \end{equation}
 
-Nun fehlen noch dei Gleichgewichtsverteilungen. Diese können im $\mathbb{M}$ entweder ebenfalls durch Transformation erhalten werden $|m^{\text{eq}}\rangle = M |f^{\text{eq}}\rangle $ \cite{Yu2010}, oder direkt aus Dichte $\rho^{\text{eq}} = \rho$ und Impuls $j^{\text{eq}} = j$ berechnet werden \cite{Lallemand2000}:
+Nun fehlen noch die Gleichgewichtsverteilungen. Diese können im $\mathbb{M}$ entweder ebenfalls durch Transformation erhalten werden $|m^{\text{eq}}\rangle = M |f^{\text{eq}}\rangle $ \cite{Yu2010}, oder direkt aus Dichte $\rho^{\text{eq}} = \rho$ und Impuls $j^{\text{eq}} = j$ berechnet werden \cite{Lallemand2000}:
 \begin{align}
  e^{\text{eq}} &= \frac{1}{4} \alpha_2 \rho + \frac{1}{6} \gamma_2 \cdot(j_x^2 + j_y^2) \\
  \epsilon^{\text{eq}} &= \frac{1}{4} \alpha_3 \rho + \frac{1}{6} \gamma_4 (j_x^2 + j_y^2) \\
@@ -590,7 +590,7 @@ Mit:
 \begin{equation}
  \hat{F} = \left( I - \frac{1}{2} \hat{S} \right) M \bar{F}
 \end{equation}
-Dabei ist $\bar{F}$ direkt mit der Kraf $F$ verknüpft:
+Dabei ist $\bar{F}$ direkt mit der Kraft $F$ verknüpft:
 % \begin{equation}
 %  \bar{F_i} = 
 % \end{equation}
