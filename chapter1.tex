@@ -27,6 +27,7 @@ mit $\rho_k = \sum_i N_i^k$, $ \rho u = \sum_i \sum_k N_i^k c_i$ und $\rho = \su
 \end{equation}
 Außerdem:
 \begin{equation}
+\label{eq:single_collision_phi_2d}
  \phi_i = \left\lbrace \begin{array}{ll} \alpha_k &i = 1 \\ (1-\alpha_k)/5 & i= 2,4,6,8 \\ (1-\alpha_k)/20 & i = 3,5,7,9  \end{array}     \right. .
 \end{equation}
 Um eine stabile Grenzfläche zu erhalten wird das Dichte-Verhältnis eingeführt \cite{Grunau1993,Reis2007,Leclaire2011}:
@@ -116,12 +117,93 @@ In diesem Ansatz ist $\rho_l$ konstant und $\rho_g$ wird aus den Dichteverteilun
 
 In der Implementierung wird nicht der BGK-Ansatz verwendet sondern ein MRT-Ansatz. Genaueres dazu in \autoref{chap:MRT}.
 
+\subsection{Erweiterung auf D3Q19}
+Bei der Erweiterung dieses Operators auf ein 3D-Modell müssen einige Anpassungen vorgenommen werden.
+Im D3Q19-Modell werden 19 Geschwindigkeitsvektoren benötigt. Die Geschwindigkeiten $c_0$ bis $c_8$ bleiben bis auf die Komponente in z-Richtung unverändert:
+\begin{equation}
+\left( \begin{smallmatrix}
+c_{1}\\
+c_{2}\\
+c_{3}\\
+c_{4}\\
+c_{5}\\
+c_{6}\\
+c_{7}\\
+c_{8}\\
+c_{9}
+\end{smallmatrix} \right)
+=
+\left( \begin{smallmatrix}
+ 0 & 0  & 0\\
+ 1 & 0  & 0\\
+ 1 & 1  & 0\\
+ 0 & 1  & 0\\
+-1 & 1  & 0\\
+-1 & 0  & 0\\
+-1 & -1 & 0\\
+ 0 & -1 & 0\\
+ 1 & -1 & 0
+\end{smallmatrix} \right)
+\end{equation}
+Hinzu kommen die 10 Geschwindigkeiten:
+\begin{equation}
+\left( \begin{smallmatrix}
+c_{10}\\
+c_{11}\\
+c_{12}\\
+c_{13}\\
+c_{14}\\
+c_{15}\\
+c_{16}\\
+c_{17}\\
+c_{18}\\
+c_{19}
+\end{smallmatrix} \right)
+=
+\left( \begin{smallmatrix}
+0  & 0 & 1\\
+1  & 0 & 1\\
+0  & 1 & 1\\
+-1 & 0 & 1\\
+0  &-1 & 1\\
+0  & 0&-1\\
+1  & 0&-1\\
+0  & 1&-1\\
+-1 & 0&-1\\
+0  &-1&-1
+\end{smallmatrix} \right)
+\end{equation}
+Mit diesen neuen Geschwindigkeiten ergeben sich neue Wichtungsfaktoren \cite{Guo2013}:
+\begin{equation}
+ w_i = \left\lbrace \begin{array}{ll} 1/3 &i = 1 \\ 1/18 & i= 2,4,6,8,10,15 \\ 1/36 & i = 3,5,7,9,11,12,13,14,16,17,18,19  \end{array}     \right. .
+\end{equation}
+Außerdem ergeben dich neue Werte für $\Phi$ (vgl. \eqref{eq:single_collision_phi_2d})\cite{Liu2012}:
+\begin{equation}
+ \phi_i = \left\lbrace \begin{array}{ll} \alpha_k &i = 1 \\ (1-\alpha_k)/12 & i= 2,4,6,8,10,15 \\ (1-\alpha_k)/24 & i = 3,5,7,9,11,12,13,14,16,17,18,19  \end{array}     \right. .
+\end{equation}
+Zusätzlich erhält der Kraftvektor der Auftriebskraft eine dritte Komponente:
+\begin{equation}
+ \vec{G} = \left( \begin{array}{c} 
+                   0 \\
+									 0 \\
+		  + (\rho_l - \rho_g) \cdot V \cdot g
+                  \end{array} \right) .
+\end{equation}
+Sonst sind alle Gleichungen aus dem D2Q9-Modell nach wie vor gültig.
+
 \section{Perturbation}
 Der zweite Operator bewirkt eine Separation entlang des Farb-Gradienten:
 \begin{equation}
+ \label{eq:perturbation_operator}
  (\Omega_i^k)^{(2)} (N_i^k) = N_i^k + \frac{A_k}{2} \left| \vec{F} \right| \left[w_i \frac{(\vec{F} \cdot \vec{c_i})^2 }{\left| \vec{F} \right|^2} -B_i  \right]
 \end{equation}
-Der Parameter $A_k$ bestimmt die Stärke dieser Trennung und kann somit als Maß für die Oberflächenspannung genutzt werden \cite{Gunstensen1991}. Der Wert von $B_i$ wird so gewählt, dass die Chapman-Enskrog-Erweiterung die klassischen Navier-Stokes-Gleichungen ergibt \cite{Reis2007}:
+Der Parameter $A_k$ bestimmt die Stärke dieser Trennung und kann somit als Maß für die Oberflächenspannung genutzt werden \cite{Gunstensen1991}. 
+Der Wert von $B_i$ wird so gewählt, dass die Chapman-Enskrog-Erweiterung die klassischen Navier-Stokes-Gleichungen ergibt \cite{Reis2007}. Dazu muss B folgenden Bedingungen genügen \cite{Liu2012}:
+\begin{equation}
+\label{eq:perturbation_B_conditions}
+\sum_i B_i = \frac{1}{3} c^2, \quad \sum_i B_i c_i = 0, \sum_i B_i c_i c_i = \frac{1}{3} c^4 \mathbf{I}.
+\end{equation}
+Im D2Q9-Modell führt dies zu:
 \begin{equation}
  B_i = \left\lbrace 
 \begin{array}{ll}
@@ -130,6 +212,7 @@ Der Parameter $A_k$ bestimmt die Stärke dieser Trennung und kann somit als Maß
 5/108 & i= 3,5,7,9
 \end{array} \right.
 \end{equation}
+
 Der Farb-Gradient $\vec{F}$ kann definiert werden als der Gradient des Farbunterschiedes $\Delta(\vec{x}) = \rho_r(\vec{x}) - \rho_b(\vec{x})$:
 \begin{equation}
  \vec{F} = \nabla (\rho_r(\vec{x}) - \rho_b(\vec{x}))
@@ -223,6 +306,80 @@ N_i^k (\vec{x},t_{**}) &= (\Omega_i^k)^{(2)} \left( N_i^k (\vec{x},t_*) \right),
 \end{align}
 was einer Verkettung entspricht: $N_i^k (\vec{x},t_{**}) = (\Omega_i^k)^{(2)} (\Omega_i^k)^{(1)} \left( N_i^k (\vec{x},t) \right)$. 
 Aufgrund des geringeren Rechenaufwandes bei Verwendung von \eqref{eq:collision_combined} wird diese Variante implementiert.
+
+\subsection{Perturbation in 3D}
+Im D3Q19-Modell wird weiterhin Gleichung \eqref{eq:perturbation_operator} verwendet.
+Die Parameter $c_i$ und $w_i$ entsprechen nun den Geschwindigkeiten und Wichtungsfaktoren des 3D-Modelles.
+Angepasst werden hier lediglich die Konstante $B$ und Vorschrift zur Annäherung des Gradienten.
+
+Für $B$ gelten auf im 3D-Modell die Bedingungen aus Gleichung \eqref{eq:perturbation_B_conditions}.
+Mit den neuen Geschwindigkeiten ergibt sich so \cite{Liu2012}:
+\begin{equation}
+ B_i = \left\lbrace 
+\begin{array}{ll}
+- 1/3 & i = 1 \\
+1/18 & i = 2,4,6,8,10,15 \\
+1/36 & i= 3,5,7,9,11,12,13,14,16,17,18,19
+\end{array} \right. .
+\end{equation}
+Um den Gradienten mit einem Fehler 4. Ordnung in 3D zu berechnen werden 12 weitere Geschwindigkeiten eingeführt.
+8 in den Ecken des Würfels um das Zentrum der Zelle:
+\begin{equation}
+\left( \begin{smallmatrix}
+c_{20}\\
+c_{21}\\
+c_{22}\\
+c_{23}\\
+c_{24}\\
+c_{25}\\
+c_{26}\\
+c_{27}
+\end{smallmatrix} \right)
+=
+\left( \begin{smallmatrix}
+ 1 &  1 & 1\\
+-1 &  1 & 1\\
+-1 & -1 & 1\\
+ 1 & -1 & 1\\
+ 1 &  1 & 0\\
+-1 &  1 & 0\\
+-1 & -1 & 0\\
+ 1 & -1 & 0
+\end{smallmatrix} \right)
+\end{equation}
+Und weitere 6 auf den Flächen des Würfels:
+\begin{equation}
+\left( \begin{smallmatrix}
+c_{28}\\
+c_{29}\\
+c_{30}\\
+c_{31}\\
+c_{32}\\
+c_{33}
+\end{smallmatrix} \right)
+=
+\left( \begin{smallmatrix}
+ 2 &  0 &  0\\
+-2 &  0 &  0\\
+ 0 &  2 &  0\\
+ 0 & -2 &  0\\
+ 0 &  0 &  2\\
+ 0 &  0 & -2
+\end{smallmatrix} \right)
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Recoloring}
 Der letzte Teil des Kollisionsoperators ist der sogenannte \emph{recoloring step}.
