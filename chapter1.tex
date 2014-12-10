@@ -277,6 +277,7 @@ Dazu müssen die Dichteunterschiede in 4 weiteren Zellen berücksichtigt werden.
 \end{figure}
 Hier wurde eine isotrope Annäherung mit Fehler 4. Ordnung implementiert \cite{Sbragaglia2007,Leclaire2011}:
 \begin{equation}
+\label{eq:gradient_approx_4}
  \vec{F}(\vec{x}) = \sum_i \xi_i \vec{e_i} \Delta(\vec{x} + \vec{e_i}) ,
 \end{equation}
 mit $\vec{\xi} = [0,32,12,32,12,32,12,32,12,1,1,1,1] / 120$ und der Nummerierung entsprechend \autoref{pic:isotroperGradient}.
@@ -367,19 +368,18 @@ c_{33}
  0 &  0 & -2
 \end{smallmatrix} \right)
 \end{equation}
-
-
-
-
-
-
-
-
-
-
-
-
-
+Mit diesen weiteren Verbindungen zu Nachbarzellen und den korrespondieren Wichtungsfaktoren \cite{Sbragaglia2007}:
+\begin{equation}
+ \vec{\xi}_i = \left\lbrace 
+\begin{array}{ll}
+0 & i = 1 \\
+2/15 & i = 2,4,6,8,10,15 \\
+1/15 & i= 3,5,7,9,11,12,13,14,16,17,18,19\\
+1/60 & i= 20,21,22,23,24,25,26,27\\
+1/120 & i= 28,29,30,31,32,33
+\end{array} \right. ,
+\end{equation}
+kann nun mit Gleichung \eqref{eq:gradient_approx_4} der Farbgradient angenähert werden.
 
 \section{Recoloring}
 Der letzte Teil des Kollisionsoperators ist der sogenannte \emph{recoloring step}.
