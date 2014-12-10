@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=chapter1.tex
 
 [Frame1_View0,0]
-TopLine=377
-Cursor=15281
+TopLine=332
+Cursor=14320
 
 [Frame2]
 Flags=0
@@ -53,10 +53,10 @@ Class=LaTeXView
 Document=appendix.tex
 
 [Frame2_View0,0]
-TopLine=111
+TopLine=117
 Cursor=9396
 
 [SessionInfo]
 FrameCount=3
-ActiveFrame=2
+ActiveFrame=1
 
