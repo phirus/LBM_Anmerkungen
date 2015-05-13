@@ -12,7 +12,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1562
-NormalPos.bottom=580
+NormalPos.bottom=540
 Class=LaTeXView
 Document=Anmerkungen.tex
 
@@ -30,13 +30,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1562
-NormalPos.bottom=580
+NormalPos.bottom=540
 Class=LaTeXView
 Document=chapter1.tex
 
 [Frame1_View0,0]
-TopLine=332
-Cursor=14320
+TopLine=356
+Cursor=14685
 
 [Frame2]
 Flags=0
@@ -48,12 +48,12 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1562
-NormalPos.bottom=580
+NormalPos.bottom=540
 Class=LaTeXView
 Document=appendix.tex
 
 [Frame2_View0,0]
-TopLine=117
+TopLine=120
 Cursor=9396
 
 [SessionInfo]
