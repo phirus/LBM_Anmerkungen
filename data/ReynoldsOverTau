@@ -1,0 +1,9 @@
+tau = logspace(log10(0.5+1e-8),log10(2),100)
+
+Reynolds = (4 .* sqrt(3)) ./ (tau - 0.5)
+
+disp = [tau' , Reynolds']'
+show(disp)
+
+ writedlm("ReynoldsOverTau.dat", disp, '\t')
+ println(" ")

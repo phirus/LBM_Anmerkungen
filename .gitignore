@@ -6,4 +6,5 @@
 *.out
 *.xml
 *blx.bib
-
+*.backup
+*~

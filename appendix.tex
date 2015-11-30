@@ -1,0 +1,157 @@
+\chapter{Anhang}
+\section{Volumenviskosität}
+In der Relaxationsmatrix hängt der Parameter $s_2$ direkt von der Volumenviskosität (\emph{bulk viscosity}, \emph{second viscosity}) ab \cite{Guo2013}:
+\begin{equation}
+ \nu' = \frac{c^2}{3} \left( \frac{1}{s_2} - \frac{1}{2} \right)  \delta t.
+\end{equation}
+
+Die Volumenviskosität ist ein Maß für die innere Reibung bei Kompression. 
+Bei Beachtung der sog. zweiten Viskosität $\nu'$ ergibt sich folgender Spannungstensor \cite{Dellar2001}:
+\begin{equation}
+\label{eq:Spannungsmatrix}
+ \mathbb{S} = \sigma_{\alpha \beta} = \mu \left( \partial_{\alpha} u_{\beta} + \partial_{\beta} u_{\alpha} - \frac{2}{3} \delta_{\alpha \beta} \nabla \cdot \vec{u} \right) + \mu' \delta_{\alpha \beta} \nabla \cdot \vec{u}
+\end{equation}
+(Bei Inkompressibilität wird $\nabla \cdot \vec{u} = 0$.)
+Im englischsprachigen Raum wird außerdem oft $K = \mu' + \frac{2}{3} \mu$ als \emph{bulk viscosity} bezeichnet, was mitunter zu Verwirrung führt \cite{Rosenhead1954}.
+Hier wird die bei Lattice Boltzmann Anwendungen übliche erste Benamung verwendet.
+Analog zur Scherviskosität gilt: $\mu' = \nu' \cdots \rho$.
+
+\subsection{Wahl des Wertes}
+Für die Simulation muss letztlich ein Wert für $\zeta$ gewählt werden. 
+Mit der Stokes-Hypothese wird für dünne einatomige Gase \cite{Graves1999}:
+\begin{equation}
+ 0 = \mu' + \frac{2}{3} \mu.
+\end{equation}
+Die Volumenviskosität wäre damit $\mu' = - \frac{2}{3} \mu$. Da diese Hypothese aber nur selten gilt, wird häufig auf experimentelle Werte zurück gegriffen.
+
+Hier wird der Wert $\mu' / \mu \approx 2$ für Wasser \cite{Rosenhead1954} verwendet.
+
+\subsection{Berechnung des Druckes}
+Aus der Spannungsmatrix \eqref{eq:Spannungsmatrix} kann außerdem der mechanische Druck im Fluid bestimmt werden.
+Dazu wird die durchschnittliche Normal-Spannung verwendet \cite{Graves1999}:
+\begin{equation}
+ p_{\text{mech}} = \frac{\sigma_{xx} \cdot \sigma_{yy} \cdot \sigma_{zz}}{3}
+\end{equation}
+
+Dieser Druck sollte nicht mit dem thermodynamischen Druck ($p_{\text{th}}=c^2 \rho$) verwechselt werden. Bei Anwendung der Stokes Hypothese fallen diese beiden Drücke zusammen \cite{Graves1999}.
+
+Die partiellen Ableitungen von $u$ können jeweils durch einen mittleren Differenzenquotienten angenähert werden:
+\begin{equation}
+ \left. \frac{\partial u(x)}{\partial x}\right|_{x_0} = \frac{u(x_0 + \Delta x) - u(x_0 - \Delta x)}{2 \Delta x}
+\end{equation}
+
+Wird außerdem statt dem MRT-Schema ein BGK-Schema verwendet wird, ist $\mu' =  \mu$.
+
+\section{MRT in 3D}
+Analog zum 2D-Fall wird die Transformationsmatrix aus den Momenten der Geschwindigkeitsverteilung gebildet.
+Mit den Geschwindigkeiten:
+\begin{equation}
+\left(\begin{smallmatrix} 
+c_x \\
+c_y \\
+c_z
+\end{smallmatrix} \right) = 
+\left(\begin{smallmatrix} 
+0 & 1 & 1 & 0 & -1 & -1 & -1 &  0 &  1 & 0 & 1 & 0 & -1 &  0 & 0  &  1 &  0 & -1 & 0 \\
+0 & 0 & 1 & 1 &  1 &  0 & -1 & -1 & -1 & 0 & 0 & 1 &  0 & -1 & 0  &  0 &  1 &  0 & -1 \\
+0 & 0 & 0 & 0 &  0 &  0 &  0 &  0 &  0 & 1 & 1 & 1 &  1 &  1 & -1 & -1 & -1 & -1 & -1
+\end{smallmatrix} \right) ,
+\end{equation}
+ergeben sich so die folgenden Momente:
+\begin{itemize}
+ \item $ \langle m_1 | =  \langle ||c_i||^0 | = (1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)$ 
+ \item $ \langle m_2 | =  \langle ||c_i||^2 | = (0,1,2,1,2,1,2,1,2,1,2,2,2,2,1,2,2,2,2)$
+ \item $ \langle m_3 | =  \langle ||c_i||^4 | = (0,1,4,1,4,1,4,1,4,1,4,4,4,4,1,4,4,4,4)$
+ \item $ \langle m_4 | =  \langle c_{i,x} | = (0,1,1,0,-1,-1,-1,0,1,0,1,0,-1,0,0,1,0,-1,0)$
+ \item $ \langle m_5 | =  \langle c_{i,x} ||c_i||^2 | = (0,1,2,0,-2,-1,-2,0,2,0,2,0,-2,0,0,2,0,-2,0)$
+ \item $ \langle m_6 | =  \langle c_{i,y} | = (0,0,1,1,1,0,-1,-1,-1,0,0,1,0,-1,0,0,1,0,-1)$
+ \item $ \langle m_7 | =  \langle c_{i,y} ||c_i||^2 | = (0,0,2,1,2,0,-2,-1,-2,0,0,2,0,-2,0,0,2,0,-2)$
+ \item $ \langle m_8 | =  \langle c_{i,z} | = (0,0,0,0,0,0,0,0,0,1,1,1,1,1,-1,-1,-1,-1,-1)$
+ \item $ \langle m_9 | =  \langle c_{i,z} ||c_i||^2 | = (0,0,0,0,0,0,0,0,0,1,2,2,2,2,-1,-2,-2,-2,-2)$
+ \item $ \langle m_{10} | =  \langle c^2_{i,x} - ||c_i||^2 | =$ (0, 0, -1, -1, -1, 0, -1, -1, -1, -1, -1, -2, -1, -2, -1, -1, -2, -1, -2)
+ \item $ \langle m_{11} | =  \langle ||c_i||^2 \cdot (c^2_{i,x} - ||c_i||^2) | = (0,0,-2,-1,-2,0,-2,-1,-2,-1,-2,-4,-2,-4,-1,-2,-4,-2,-4)$
+ \item $ \langle m_{12} | =  \langle c^2_{i,y} - c^2_{i,z} | = (0,0,1,1,1,0,1,1,1,-1,-1,0,-1,0,-1,-1,0,-1,0)$
+ \item $ \langle m_{13} | =  \langle ||c_i||^2 \cdot (c^2_{i,y} - c^2_{i,z}) | = (0,0,2,1,2,0,2,1,2,-1,-2,0,-2,0,-1,-2,0,-2,0)$
+ \item $ \langle m_{14} | =  \langle c_{i,x} c_{i,y}  | = (0,0,1,0,-1,0,1,0,-1,0,0,0,0,0,0,0,0,0,0)$
+ \item $ \langle m_{15} | =  \langle c_{i,y} c_{i,z}  | = (0,0,0,0,0,0,0,0,0,0,0,1,0,-1,0,0,-1,0,1)$
+ \item $ \langle m_{16} | =  \langle c_{i,x} c_{i,z}  | = (0,0,0,0,0,0,0,0,0,0,1,0,-1,0,0,-1,0,1,0)$
+ \item $ \langle m_{17} | =  \langle (c^2_{i,y} - c^2_{i,z}) c_{i,x}   | = (0,0,1,0,-1,0,-1,0,1,0,-1,0,1,0,0,-1,0,1,0)$
+ \item $ \langle m_{18} | =  \langle (c^2_{i,z} - c^2_{i,x}) c_{i,y}   | = (0,0,-1,0,-1,0,1,0,1,0,0,1,0,-1,0,0,1,0,-1)$
+ \item $ \langle m_{19} | =  \langle (c^2_{i,x} - c^2_{i,y}) c_{i,z}   | = (0,0,0,0,0,0,0,0,0,0,1,-1,1,-1,0,-1,1,-1,1)$
+\end{itemize}
+Nach  der Orthogonalisierung ergibt sich somit folgende Transformationsmatrix:
+\begin{equation}
+ M = \left( \begin{smallmatrix}
+ 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+ -30 & -11 & 8 & -11 & 8 & -11 & 8 & -11 & 8 & -11 & 8 & 8 & 8 & 8 & -11 & 8 & 8 & 8 & 8 \\
+ 12 & -4 & 1 & -4 & 1 & -4 & 1 & -4 & 1 & -4 & 1 & 1 & 1 & 1 & -4 & 1 & 1 & 1 & 1 \\
+ 0 & 1 & 1 & 0 & -1 & -1 & -1 & 0 & 1 & 0 & 1 & 0 & -1 & 0 & 0 & 1 & 0 & -1 & 0 \\
+ 0 & -4 & 1 & 0 & -1 & 4 & -1 & 0 & 1 & 0 & 1 & 0 & -1 & 0 & 0 & 1 & 0 & -1 & 0 \\
+ 0 & 0 & 1 & 1 & 1 & 0 & -1 & -1 & -1 & 0 & 0 & 1 & 0 & -1 & 0 & 0 & 1 & 0 & -1 \\
+ 0 & 0 & 1 & -4 & 1 & 0 & -1 & 4 & -1 & 0 & 0 & 1 & 0 & -1 & 0 & 0 & 1 & 0 & -1 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & -1 & -1 & -1 & -1 & -1 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & -4 & 1 & 1 & 1 & 1 & 4 & -1 & -1 & -1 & -1 \\
+ 0 & 2 & 1 & -1 & 1 & 2 & 1 & -1 & 1 & -1 & 1 & -2 & 1 & -2 & -1 & 1 & -2 & 1 & -2 \\
+ 0 & -4 & 1 & 2 & 1 & -4 & 1 & 2 & 1 & 2 & 1 & -2 & 1 & -2 & 2 & 1 & -2 & 1 & -2 \\
+ 0 & 0 & 1 & 1 & 1 & 0 & 1 & 1 & 1 & -1 & -1 & 0 & -1 & 0 & -1 & -1 & 0 & -1 & 0 \\
+ 0 & 0 & 1 & -2 & 1 & 0 & 1 & -2 & 1 & 2 & -1 & 0 & -1 & 0 & 2 & -1 & 0 & -1 & 0 \\
+ 0 & 0 & 1 & 0 & -1 & 0 & 1 & 0 & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & -1 & 0 & 0 & -1 & 0 & 1 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & -1 & 0 & 0 & -1 & 0 & 1 & 0 \\
+ 0 & 0 & 1 & 0 & -1 & 0 & -1 & 0 & 1 & 0 & -1 & 0 & 1 & 0 & 0 & -1 & 0 & 1 & 0 \\
+ 0 & 0 & -1 & 0 & -1 & 0 & 1 & 0 & 1 & 0 & 0 & 1 & 0 & -1 & 0 & 0 & 1 & 0 & -1 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & -1 & 1 & -1 & 0 & -1 & 1 & -1 & 1
+\end{smallmatrix} \right).
+\end{equation}
+Die entsprechende inverse Transformationsmatrix ist:\\
+\rotatebox{90}{
+$
+ M = \frac{1}{47880} \left( \begin{smallmatrix}
+2520 & -600 & 2280 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & -0 & 0 & 0 & 0 & -0 \\
+2520 & -220 & -760 & 4788 & -4788 & 0 & 0 & 0 & 0 & 2660 & -2660 & 0 & 0 & 0 & -0 & 0 & 0 & 0 & -0 \\
+2520 & 160 & 190 & 4788 & 1197 & 4788 & 1197 & 0 & 0 & 1330 & 665 & 3990 & 1995 & 11970 & -0 & 0 & 5985 & -5985 & -0 \\
+2520 & -220 & -760 & 0 & 0 & 4788 & -4788 & 0 & 0 & -1330 & 1330 & 3990 & -3990 & 0 & -0 & 0 & 0 & 0 & -0 \\
+2520 & 160 & 190 & -4788 & -1197 & 4788 & 1197 & 0 & 0 & 1330 & 665 & 3990 & 1995 & -11970 & -0 & 0 & -5985 & -5985 & -0 \\
+2520 & -220 & -760 & -4788 & 4788 & 0 & 0 & 0 & 0 & 2660 & -2660 & 0 & 0 & 0 & -0 & 0 & 0 & 0 & -0 \\
+2520 & 160 & 190 & -4788 & -1197 & -4788 & -1197 & 0 & 0 & 1330 & 665 & 3990 & 1995 & 11970 & -0 & 0 & -5985 & 5985 & -0 \\
+2520 & -220 & -760 & 0 & 0 & -4788 & 4788 & 0 & 0 & -1330 & 1330 & 3990 & -3990 & 0 & -0 & 0 & 0 & 0 & -0 \\
+2520 & 160 & 190 & 4788 & 1197 & -4788 & -1197 & 0 & 0 & 1330 & 665 & 3990 & 1995 & -11970 & -0 & 0 & 5985 & 5985 & -0 \\
+2520 & -220 & -760 & 0 & 0 & 0 & 0 & 4788 & -4788 & -1330 & 1330 & -3990 & 3990 & 0 & -0 & 0 & 0 & 0 & -0 \\
+2520 & 160 & 190 & 4788 & 1197 & 0 & 0 & 4788 & 1197 & 1330 & 665 & -3990 & -1995 & 0 & -0 & 11970 & -5985 & 0 & 5985 \\
+2520 & 160 & 190 & 0 & 0 & 4788 & 1197 & 4788 & 1197 & -2660 & -1330 & 0 & 0 & 0 & 11970 & 0 & 0 & 5985 & -5985 \\
+2520 & 160 & 190 & -4788 & -1197 & 0 & 0 & 4788 & 1197 & 1330 & 665 & -3990 & -1995 & 0 & -0 & -11970 & 5985 & 0 & 5985 \\
+2520 & 160 & 190 & 0 & 0 & -4788 & -1197 & 4788 & 1197 & -2660 & -1330 & 0 & 0 & 0 & -11970 & 0 & 0 & -5985 & -5985 \\
+2520 & -220 & -760 & 0 & 0 & 0 & 0 & -4788 & 4788 & -1330 & 1330 & -3990 & 3990 & 0 & -0 & 0 & 0 & 0 & -0 \\
+2520 & 160 & 190 & 4788 & 1197 & 0 & 0 & -4788 & -1197 & 1330 & 665 & -3990 & -1995 & 0 & -0 & -11970 & -5985 & 0 & -5985 \\
+2520 & 160 & 190 & 0 & 0 & 4788 & 1197 & -4788 & -1197 & -2660 & -1330 & -0 & -0 & 0 & -11970 & 0 & 0 & 5985 & 5985 \\
+2520 & 160 & 190 & -4788 & -1197 & 0 & 0 & -4788 & -1197 & 1330 & 665 & -3990 & -1995 & 0 & -0 & 11970 & 5985 & 0 & -5985 \\
+2520 & 160 & 190 & 0 & 0 & -4788 & -1197 & -4788 & -1197 & -2660 & -1330 & -0 & -0 & 0 & 11970 & 0 & 0 & -5985 & 5985 
+\end{smallmatrix} \right)
+$
+}
+\\
+Die Relaxationsmatrix ergibt sich damit folgendermaßen:
+\begin{equation}
+ \hat{S} \equiv \text{diag} (s_1,s_2,s_3,s_4,s_5,s_6,s_7,s_8,s_9,s_{10},s_{11},s_{12},s_{13},s_{14},s_{15},s_{16},s_{17},s_{18},s_{19}) .
+\end{equation}
+Aus Symmetrie- und Erhaltungs-Gründen ergibt sich:
+\begin{align}
+s_1 &= 1 ,\\
+s_4 &= 1 ,\\
+s_6 &= 1 ,\\
+s_8 &= 1 ,\\
+s_5 &= s_7 = s_9 ,\\
+s_{10} &= s_{12} ,\\
+s_{11} &= s_{13} ,\\
+s_{14} &= s_{15} = s_{16} ,\\
+s_{17} &= s_{18} = s_{19} . 
+\end{align}
+Dabei entspricht $s_10$ analog zum 2D-Fall $\omega$. Weiterhin gilt $s_10 = s_{14}$ \cite{2002}. 
+Damit vereinfacht sich die Relaxationsmatrix zu:
+\begin{equation}
+\hat{S} \equiv \text{diag} (1,s_2,s_3,1,s_5,1,s_5,1,s_5, \omega ,s_{11},\omega,s_{11},\omega,\omega,\omega,s_{17},s_{17},s_{17}) .
+\end{equation}
+$s_2$ korrespondiert mit der Bulk-Viskosität:
+\begin{equation}
+\nu' = \frac{2}{9} \left( \frac{1}{s_2} - \frac{1}{2} \right) .
+\end{equation}
