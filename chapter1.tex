@@ -748,9 +748,9 @@ Mit:
  \hat{F} = \left( I - \frac{1}{2} \hat{S} \right) M \bar{F}
 \end{equation}
 Dabei ist $\bar{F}$ direkt mit der Kraft $F$ verknüpft:
-% \begin{equation}
-%  \bar{F_i} = 
-% \end{equation}
+\begin{equation}
+\bar{F_i} = w_i \cdot \left(  \frac{c_i \cdot F}{c_s^2}         \right)
+\end{equation}
 
 
 
@@ -832,8 +832,8 @@ Und für den unteren (south) Rand:
 \begin{align}
 u_y &= 1 - \frac{f_0 + f_1 + f_5 + 2(f_6 + f_7 + f_8)}{\rho_0}, \\
 f_3 &= f_7 + \frac{2}{3} \rho_0 u_y, \\
-f_2 &= - \frac{1}{6} \rho_0 u_x + f_6 + \frac{f_5 - f_1}{2}, \\
-f_4 &= - \frac{1}{6} \rho_0 u_x +f_8 + \frac{f_1 - f_5}{2}.
+f_2 &= \frac{1}{6} \rho_0 u_x + f_6 + \frac{f_5 - f_1}{2}, \\
+f_4 &= \frac{1}{6} \rho_0 u_x +f_8 + \frac{f_1 - f_5}{2}.
 \end{align}
 
 Analog werden die Geschwindigkeitskomponenten für die \emph{velocity boundary} gewonnen.
@@ -855,6 +855,38 @@ Und für den unteren (south) Rand:
 \begin{equation}
 \rho_0 = \frac{f_0 + f_1 + f_5 + 2(f_6 + f_7 + f_8)}{1 - u_y}.
 \end{equation}
+
+Die Ecken müssen gesondert behandelt werden. 
+Am beispiel der south-west-boundary Hier sind nach dem Streaming-Schritt nur 3 Komponenten bekannt.
+Weiterhin gilt $u_x = u_y = 0$.
+Damit vereinfacht sich der bounceback der nicht-gleichgewichts-Komponente:
+\begin{align}
+f_1 &= f_5 + \underbrace{(f_1^{\text{eq}} - f_5^{\text{eq}})}_{0} = f_5, \\
+f_3 &= f_7 + \underbrace{(f_3^{\text{eq}} - f_7^{\text{eq}})}_{0} = f_7.
+\end{align}
+\begin{align}
+\rho u_x &= 0 = f_1 + f_2 + f_8 - f_4 - f_5 - f_6 \\
+\rho u_y &= 0 = f_2 + f_3 + f_4 - f_6 - f_7 - f_8 
+\end{align}
+$f_2$, $f_4$ und $f_8$ auf die linke Seite: 
+\begin{align}
+f_2 - f_4 + f_8  &= - f_1 + f_5 + f_6, \\
+f_2 + f_4 - f_8 &= - f_3 + f_6 + f_7,  
+\end{align}
+und $f_1$ und $f_3$ eingesetzt:
+\begin{align}
+f_2 - f_4 + f_8  &= f_6, \\
+f_2 + f_4 - f_8 &= f_6,  
+\end{align}
+beide Gleichungen addieren:
+\begin{align}
+2 f_2 &= 2 f_6, \\
+f_2 &= f_6.  
+\end{align}
+
+
+
+
 
 
 
