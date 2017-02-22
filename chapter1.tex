@@ -926,3 +926,79 @@ f_2 &= f_6.
 \end{figure}
 
 \input{BoundaryGraphic.tex}
+
+
+\section{Extraktion der Form und Orientierung}
+
+Um Informationen zu Form und Orientierung der Blase zu erhalten, wird ein Ellipsoid an die vorhandenen Daten der Blase angepasst, dessen Exzentrizität, Oberfläche sowie Orientierung bekannt sind.
+Aus der Simulation werden jeweils die Positionen der Gitterpunkte --die der Blase zugeordnet sind --, die Dichte der Gasphase $\rho_b$ an diesen Gitterpunkten, sowie die Position des Schwerpunktes der Blase ausgegeben.
+
+Ein Ellipsoid ist allgemein durch die Lösung $\vec{x}$ der Gleichung:
+\begin{equation}
+\label{eq:ellipsoid_definition}
+(\vec{x}-\vec{v})^\top \mathbf{A} (\vec{x}-\vec{v}) = 1,
+\end{equation}
+definiert. $\vec{v}$ ist dabei der Vektor der Koordinaten des Mittelpunktes, $\mathbf{A}$ ist eine Matrix deren Eigenvektoren die Hauptachsen und deren Eigenwerte die reziproken Quadrate der Halbachsen ($a^{-2}, b^{-2} c^{-2}$) sind.
+Weiterhin gilt:
+\begin{itemize}
+\item $(\vec{x}-\vec{v})^\top \mathbf{A} (\vec{x}-\vec{v}) < 1$ falls $\vec{x}$ innerhald des Ellipsoids liegt und
+\item $(\vec{x}-\vec{v})^\top \mathbf{A} (\vec{x}-\vec{v}) > 1$ falls $\vec{x}$ außerhalb des Ellipsoids liegt.
+\end{itemize}
+
+Das wird für die Anpassung des Ellipsoids an die vorhandenen Daten ausgenutzt.
+Für die Optimierung der Ellipsoidform und -Orientierung kann eine Zielfunktion $\Omega(\mathbf{A})$ abhängig von der Ellipsoid-Matrix erstellt werden:
+\begin{equation}
+\Omega(\mathbf{A}) = \sum_i \rho_{b,i} \left( ((\vec{x_i}-\vec{v})^\top \mathbf{A} (\vec{x_i}-\vec{v}) -1) \cdot \Theta( (\vec{x_i}-\vec{v})^\top \mathbf{A} (\vec{x_i}-\vec{v}) -1 ) \right)^2.
+\end{equation}
+Diese Zielfunktion ist eine mit der Dichte  $\rho_{b.i}$ gewichtete \emph{least squares} Funktion. 
+Durch die Heaviside-Funktion $\Theta$ wird sichergestellt dass nur Gitterstellen außerhalb des Ellipsoids in einem Strafterm resultieren.
+
+\subsubsection{Nebenbedingungen 2D}
+Die Blase rotiert ausschließlich um die z-Achse.
+Damit ist beriets die erste Hauptachse und damit der erste Eigenvektor $x_3$ von $\mathbf{A}$ bekannt:
+\begin{equation}
+x_3 = \left( 
+\begin{matrix}
+0 \\ 0 \\ 1
+\end{matrix}
+\right)
+\end{equation}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\draw [->, thick] (0,0) -- (2,0) node[right]{$e_x$};
+\draw [->, thick] (0,0) -- (0,2) node[right]{$e_y$};
+\draw [->, thick] (0,0) -- (1.73,-1) node[right]{$x_1$};
+\draw [->, thick] (0,0) -- (1,1.73) node[right]{$x_2$};
+\draw (0,1) arc (90:60:1) node[above left]{$\alpha$}; 
+\draw (1,0) arc (0:-30:1) node[above right]{$\alpha$};
+\end{tikzpicture}
+\caption{Schematische Darstellung Orientierungswinkels}
+\label{pic:orientierungswinkel_schema}
+\end{figure}
+
+Die anderen beiden Eigenvektoren können über den Orientierungswinkel  verknüpft werden (vgl. \autoref{pic:orientierungswinkel_schema}):
+\begin{equation}
+x_1 = \left( 
+\begin{matrix}
+\cos \alpha \\ - \sin \alpha \\ 0
+\end{matrix}
+\right), \quad
+x_2 = \left( 
+\begin{matrix}
+\sin \alpha \\ \cos \alpha \\ 0
+\end{matrix}
+\right).
+\end{equation}
+Außerdem gilt:
+\begin{equation}
+- \pi/2 \leq \alpha \leq \pi/2
+\end{equation}
+
+Das Volumen des Ellipsoids ändert sich über den Verlauf der Simulation nicht und entspricht dem initialen Blasenvolumen:
+\begin{align}
+%%V_E &= V_{\text{ini}} \\
+\frac{4}{3} \pi a b c = \frac{4}{3} \pi {r_b}^3
+\end{align}
+
