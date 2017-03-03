@@ -18,7 +18,7 @@ Document=Anmerkungen.tex
 
 [Frame0_View0,0]
 TopLine=0
-Cursor=511
+Cursor=51
 
 [Frame1]
 Flags=0
@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=chapter1.tex
 
 [Frame1_View0,0]
-TopLine=1019
-Cursor=48217
+TopLine=1054
+Cursor=49137
 
 [Frame2]
 Flags=0
@@ -76,5 +76,5 @@ Cursor=550
 
 [SessionInfo]
 FrameCount=4
-ActiveFrame=0
+ActiveFrame=1
 

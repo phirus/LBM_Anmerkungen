@@ -998,7 +998,43 @@ Außerdem gilt:
 
 Das Volumen des Ellipsoids ändert sich über den Verlauf der Simulation nicht und entspricht dem initialen Blasenvolumen:
 \begin{align}
-%%V_E &= V_{\text{ini}} \\
-\frac{4}{3} \pi a b c = \frac{4}{3} \pi {r_b}^3
+V_E &= V_{\text{ini}} \\
+\frac{4}{3} \pi a b c &= \frac{4}{3} \pi {r_b}^3 \\
+ a b c &= {r_b}^3 \\
+b &= \frac{{r_b}^3}{ac}
 \end{align}
+Abhängig vom gewählten Ansatz ergibt sich entweder für $c = r_b$:
+\begin{equation}
+b = \frac{{r_b}^2}{a},
+\end{equation}
+oder für $c = a$:
+\begin{equation}
+b = \frac{{r_b}^3}{a^2},
+\end{equation}
 
+Damit sind sowohl die Eigenwerte, als auch die Eigenvektoren von $\mathbf{A}$ lediglich von den zwei Parametern $\alpha$ und $a$ abhängig.
+$\mathbf{A}$ kann nun aus diesen Werten konstruiert werden:
+\begin{equation}
+\mathbf{A} = \mathbf{M} \mathbf{D} \mathbf{M^{-1}} ,
+\end{equation}
+mit
+\begin{equation}
+\mathbf{M} = \left(
+\begin{matrix}
+\cos \alpha & \sin \alpha  & 0 \\
+- \sin \alpha & \cos \alpha & 0 \\
+0 & 0 & 1
+\end{matrix}
+\right)
+\end{equation}
+und 
+
+\begin{equation}
+\mathbf{D} = \left(
+\begin{matrix}
+a^{-2} & 0  & 0 \\
+0 & b^{-2} & 0 \\
+0 & 0 & c^{-2}
+\end{matrix}
+\right)
+\end{equation}
