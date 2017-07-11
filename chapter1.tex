@@ -1038,3 +1038,76 @@ a^{-2} & 0  & 0 \\
 \end{matrix}
 \right)
 \end{equation}
+
+\subsubsection{Nebenbedingungen 3D}
+Im dreidimensionalen Fall kann das Ellipsoid um alle drei Raumachsen rotieren.
+\begin{itemize}
+\item Drehung um die x-Achse:
+\begin{equation}
+\mathbf{R_x}(\alpha) = \left(
+\begin{matrix}
+1 & 0  & 0 \\
+0 & \cos(\alpha) & -\sin(\alpha) \\
+0 & \sin(\alpha) & \cos(\alpha)
+\end{matrix}
+\right)
+\end{equation}
+
+\item Drehung um die y-Achse:
+\begin{equation}
+\mathbf{R_y}(\beta) = \left(
+\begin{matrix}
+\cos(\beta) & 0  & \sin(\beta) \\
+0 & 1 & 0 \\
+-sin(\beta) & 0 & \cos(\beta)
+\end{matrix}
+\right)
+\end{equation}
+
+\item Drehung um die z-Achse:
+\begin{equation}
+\mathbf{R_z}(\gamma) = \left(
+\begin{matrix}
+\cos(\gamma) & -\sin(\gamma)  & 0 \\
+\sin(\gamma) & \cos(\gamma) & 0 \\
+0 & 0 & 1
+\end{matrix}
+\right)
+\end{equation}
+\end{itemize}
+\begin{equation}
+\mathbf{R}(\alpha,\beta,\gamma) = \mathbf{R_x}(\alpha) \mathbf{R_y}(\beta) \mathbf{R_z}(\gamma)
+\end{equation}
+Angewendet auf die urspr�ngliche Orientierung:
+\begin{equation}
+\mathbf{M_0} = \left(
+\begin{matrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{matrix}
+\right)
+= \mathbf{I},
+\end{equation}
+ergibt sich 
+\begin{equation}
+\mathbf{M}(\alpha,\beta,\gamma) = \mathbf{M_0} \mathbf{R}(\alpha,\beta,\gamma) = \mathbf{I} \mathbf{R}(\alpha,\beta,\gamma) = \mathbf{R}(\alpha,\beta,\gamma).
+\end{equation}
+
+Als zus�tzliche Nebenbedingung ergibt sich analog zum zweidimensionalen Fall:
+\begin{align}
+V_E &= V_{\text{ini}} \\
+\frac{4}{3} \pi a b c &= \frac{4}{3} \pi {r_b}^3 \\
+ a b c &= {r_b}^3 \\
+c &= \frac{{r_b}^3}{ab}
+\end{align}
+Damit reduziert sich die Zahl der freien Parameter auf f�nf ($\alpha$,$\beta$,$\gamma$,$a$,$b$).
+
+\section{Drag und Lift berechnen}
+\begin{equation}
+\vec{F} = \oint{p \vec n \text{d}A}.
+\end{equation}
+Mit dem Integralsatz von Gau� kann dieses Integral �ber die Oberfl�che in ein Integral �ber das Volumen der Blase �berf�hrt werden \cite{Bronstein2006}:
+\begin{equation}
+\vec{F} = \oint{p \vec n \text{d}A} = \int \text{div} (p \vec n) \text{d}V
+\end{equation}

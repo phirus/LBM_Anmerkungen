@@ -12,7 +12,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1562
-NormalPos.bottom=514
+NormalPos.bottom=580
 Class=LaTeXView
 Document=Anmerkungen.tex
 
@@ -30,13 +30,11 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1562
-NormalPos.bottom=514
+NormalPos.bottom=580
 Class=LaTeXView
 Document=chapter1.tex
 
 [Frame1_View0,0]
-TopLine=1054
-Cursor=49137
 
 [Frame2]
 Flags=0
@@ -48,12 +46,12 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1562
-NormalPos.bottom=514
+NormalPos.bottom=580
 Class=LaTeXView
 Document=appendix.tex
 
 [Frame2_View0,0]
-TopLine=135
+TopLine=132
 Cursor=9396
 
 [Frame3]
@@ -66,7 +64,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1562
-NormalPos.bottom=514
+NormalPos.bottom=580
 Class=LaTeXView
 Document=BoundaryGraphic.tex
 
