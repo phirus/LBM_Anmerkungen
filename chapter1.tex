@@ -1041,6 +1041,7 @@ a^{-2} & 0  & 0 \\
 
 \subsubsection{Nebenbedingungen 3D}
 Im dreidimensionalen Fall kann das Ellipsoid um alle drei Raumachsen rotieren.
+Um diese Drehung abzubilden, werden Drehmatrizen verwendet \cite{Scheck2007,Goldhorn2010}:
 \begin{itemize}
 \item Drehung um die x-Achse:
 \begin{equation}
@@ -1075,10 +1076,11 @@ Im dreidimensionalen Fall kann das Ellipsoid um alle drei Raumachsen rotieren.
 \right)
 \end{equation}
 \end{itemize}
+Die resultierende Drehmatrix ist das Produkt dieser einzelnen Drehmatrizen \cite{Koecher1997,Scheck2007,Goldhorn2010}:
 \begin{equation}
 \mathbf{R}(\alpha,\beta,\gamma) = \mathbf{R_x}(\alpha) \mathbf{R_y}(\beta) \mathbf{R_z}(\gamma)
 \end{equation}
-Angewendet auf die ursprï¿½ngliche Orientierung:
+Angewendet auf die ursprüngliche Orientierung:
 \begin{equation}
 \mathbf{M_0} = \left(
 \begin{matrix}
@@ -1094,20 +1096,21 @@ ergibt sich
 \mathbf{M}(\alpha,\beta,\gamma) = \mathbf{M_0} \mathbf{R}(\alpha,\beta,\gamma) = \mathbf{I} \mathbf{R}(\alpha,\beta,\gamma) = \mathbf{R}(\alpha,\beta,\gamma).
 \end{equation}
 
-Als zusï¿½tzliche Nebenbedingung ergibt sich analog zum zweidimensionalen Fall:
+Als zusätzliche Nebenbedingung ergibt sich analog zum zweidimensionalen Fall:
 \begin{align}
 V_E &= V_{\text{ini}} \\
 \frac{4}{3} \pi a b c &= \frac{4}{3} \pi {r_b}^3 \\
  a b c &= {r_b}^3 \\
 c &= \frac{{r_b}^3}{ab}
 \end{align}
-Damit reduziert sich die Zahl der freien Parameter auf fï¿½nf ($\alpha$,$\beta$,$\gamma$,$a$,$b$).
+Damit reduziert sich die Zahl der freien Parameter auf fünf ($\alpha$,$\beta$,$\gamma$,$a$,$b$).
 
 \section{Drag und Lift berechnen}
+Die resultierende aerodynamische Kraft entspricht: %\cite{Iben1999}:
 \begin{equation}
 \vec{F} = \oint{p \vec n \text{d}A}.
 \end{equation}
-Mit dem Integralsatz von Gauï¿½ kann dieses Integral ï¿½ber die Oberflï¿½che in ein Integral ï¿½ber das Volumen der Blase ï¿½berfï¿½hrt werden \cite{Bronstein2006}:
+Mit dem Integralsatz von Gauß kann dieses Integral über die Oberfläche in ein Integral über das Volumen der Blase überführt werden \cite{Bronstein2006}:
 \begin{equation}
 \vec{F} = \oint{p \vec n \text{d}A} = \int \text{div} (p \vec n) \text{d}V
 \end{equation}
